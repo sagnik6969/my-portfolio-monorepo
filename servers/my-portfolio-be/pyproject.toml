@@ -1,7 +1,42 @@
 [project]
-name = "my-portfolio"
+name = "python-boilerplate-project"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "ruff>=0.12.10",
+]
+
+
+[tool.ruff]
+# Project-wide settings
+line-length = 88
+exclude = ["build/", "dist/", "docs/_build/",".venv/", ".vscode/", "checkpoint.pt"]
+
+[tool.ruff.lint]
+# Choose rule sets; common picks include:
+# E/F (pycodestyle/pyflakes) are default; add UP (pyupgrade), B (bugbear), I (import sorting)
+select = ["E", "F", "UP", "B", "I"]
+# Optionally ignore specific rules:
+ignore = ["E203", "E501"]
+
+# You can narrow scope, per-file ignores, etc.
+# per-file-ignores = {"tests/**.py" = ["S101"]}
+
+[tool.ruff.format]
+# Enable Ruff's formatter. You can pin line length here too, and docstring formatting options.
+# Example options; see docs for full list.
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+
+
+

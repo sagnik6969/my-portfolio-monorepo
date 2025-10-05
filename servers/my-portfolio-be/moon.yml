@@ -1,0 +1,15 @@
+# apps/backend/project.yml
+type: "application"
+language: "python"
+platform: "python"
+
+tasks:
+  dev:
+    command: "uv run uvicorn main:app --reload --port 8000"
+    local: true
+
+  check_linting:
+    command: "uv run ruff --check ."
+  
+  check_formatting:
+    command: "uv run ruff format --check ."
