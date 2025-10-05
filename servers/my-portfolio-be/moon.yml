@@ -5,11 +5,11 @@ platform: "python"
 
 tasks:
   dev:
-    command: "uv run uvicorn main:app --reload --port 8000"
+    command: "uvicorn main:app --reload --port 8000"
     local: true
 
   check_linting:
-    command: "uv run ruff check --output-format=github ."
+    command: "ruff check --output-format=github ."
   
   check_formatting:
-    command: "uv run ruff format --check ."
+    command: "ruff format --check ."
