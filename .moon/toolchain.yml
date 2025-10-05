@@ -5,5 +5,3 @@ node:
 python:
   packageManager: 'pip'
   version: "3.13"
-  uv:
-    syncArgs: []
