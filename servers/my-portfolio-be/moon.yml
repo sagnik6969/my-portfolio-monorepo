@@ -8,8 +8,11 @@ tasks:
     command: "uvicorn main:app --reload --port 8000"
     local: true
 
+  install-deps:
+    command: "uv sync"
+
   check_linting:
-    command: "python3 -m ruff check --output-format=github ."
+    command: "uv run ruff check --output-format=github ."
   
   check_formatting:
-    command: "python3 -m ruff format --check ."
+    command: "uv run ruff format --check ."
