@@ -16,3 +16,6 @@ tasks:
   
   check_formatting:
     command: "uv run ruff format --check ."
+
+  check_test_coverage:
+    command: uv run -m pytest --cov=. --cov-report=term-missing --cov-fail-under=80 tests/
