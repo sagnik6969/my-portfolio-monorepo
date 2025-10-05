@@ -1,0 +1,13 @@
+type: "application"
+language: "javascript"
+platform: "node"
+
+tasks:
+  dev:
+    command: "npm run dev"
+    local: true
+
+  build:
+    command: "npm run build"
+    outputs:
+      - "dist"
