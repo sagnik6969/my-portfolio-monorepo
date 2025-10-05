@@ -3,5 +3,6 @@ node:
   packageManager: "npm"  
 
 python:
-  version: "3.13"
   packageManager: 'uv'
+  uv:
+    syncArgs: []

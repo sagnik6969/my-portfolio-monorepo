@@ -9,7 +9,7 @@ tasks:
     local: true
 
   check_linting:
-    command: "uv run ruff --check ."
+    command: "uv run ruff check --output-format=github ."
   
   check_formatting:
     command: "uv run ruff format --check ."
