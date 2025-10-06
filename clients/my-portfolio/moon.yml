@@ -15,4 +15,4 @@ tasks:
   deploy:
     command: "./scripts/deploy_fe_to_gcs.sh"
     deps:
-      - '^:deploy'
+      - 'build'
