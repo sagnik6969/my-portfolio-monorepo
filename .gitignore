@@ -4,3 +4,4 @@
 .moon/docker
 .DS_Store
 __pycache__
+public/**/*
