@@ -17,10 +17,10 @@ steps:
   args:
     - '-c'
     - |
-      # Add the global node_modules to the PATH so the 'moon' command is found
-      export PATH=$PATH:$(npm root -g)
+      # Use $$PATH to escape the dollar sign
+      export PATH=$$PATH:$(npm root -g)
       
-      # Run the command
+      # Now run the moon command
       moon ci
 options:
   logging: CLOUD_LOGGING_ONLY
