@@ -1,28 +1,32 @@
 name: "Pipeline"
 on:
-    push:
-        branches:
-            - "staging"
+  push:
+    branches:
+      - "staging"
 jobs:
-    ci:
-        name: "CI CD Pipeline"
-        runs-on: "ubuntu-latest"
-        environment: staging
-        steps:
-            - id: "auth"
-              uses: "google-github-actions/auth@v2"
-              with:
-                  credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+  ci:
+    name: "CI CD Pipeline"
+    runs-on: "ubuntu-latest"
+    environment: staging
+    env:
+      DIST_FOLDER: ${{ vars.DIST_FOLDER }}
+      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      GCP_BUCKET_NAME: ${{ vars.GCP_BUCKET_NAME }}
+    steps:
+      - id: "auth"
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-            - name: "Set up Cloud SDK"
-              uses: "google-github-actions/setup-gcloud@v3"
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v3"
 
-            - name: "Test gcloud CLI"
-              run: "gcloud info"
+      - name: "Test gcloud CLI"
+        run: "gcloud info"
 
-            - uses: "actions/checkout@v4"
-              with:
-                  fetch-depth: 0
+      - uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
 
-            - uses: "moonrepo/setup-toolchain@v0"
-            - run: "moon ci"
+      - uses: "moonrepo/setup-toolchain@v0"
+      - run: "moon ci"
