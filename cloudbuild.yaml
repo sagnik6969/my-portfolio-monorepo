@@ -1,15 +1,25 @@
 steps:
-# Step 1: Install dependencies
-# Use the official Node.js builder image to run npm install.
-- name: 'gcr.io/cloud-builders/npm'
-  args: ['install','-g', '@moonrepo/cli']
+# Step 1: Install Node.js dependencies
+# This step uses a long-lived cache for node_modules to speed up subsequent builds.
 
-# Step 2: Build the React application
-# This runs the 'npm run build' script defined in your package.json.
+# Step 2: Install Moon CLI
+# It's best practice to install Moon in a separate step to keep things clean.
 - name: 'gcr.io/cloud-builders/npm'
-  args: ['moon', 'ci']
+  id: 'Install Moon'
+  args: ['install', '-g', '@moonrepo/cli']
 
-# Step 3: Deploy to Google Cloud Storage
-# Use the gsutil builder to sync the build output to your GCS bucket.
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['-m', 'rsync', '-d', '-r', './dist', 'gs://your-unique-bucket-name']
+# Step 3: Run moon ci
+# This is the main step. It executes 'moon ci' to build, lint, and test affected projects.
+# We use the nodejs builder which provides a standard Node.js environment.
+- name: 'gcr.io/cloud-builders/node'
+  id: 'Run CI'
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      # Add the global node_modules to the PATH so the 'moon' command is found
+      export PATH=$PATH:$(npm root -g)
+      
+      # Run the command
+      moon ci
+
