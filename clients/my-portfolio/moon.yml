@@ -12,6 +12,7 @@ tasks:
     outputs:
       - "dist"
   
-  install-deps:
-    command: "npm install"
-    local: true
+  deploy:
+    command: "./scripts/deploy_fe_to_gcs.sh"
+    deps:
+      - '^:deploy'
