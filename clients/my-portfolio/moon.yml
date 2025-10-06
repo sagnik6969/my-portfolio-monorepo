@@ -9,8 +9,6 @@ tasks:
 
   build:
     command: "npm run build"
-    outputs:
-      - "dist"
   
   # deploy:
   #   command: "../../scripts/deploy_fe_to_gcs.sh"
