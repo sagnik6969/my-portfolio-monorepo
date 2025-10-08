@@ -125,7 +125,6 @@ export default function Hero({ onAskAI, onDownloadResume }: HeroProps) {
             onClick={onAskAI}
             className="hover-elevate active-elevate-2 backdrop-blur-sm"
             data-testid="button-ask-ai"
-            disabled
           >
             <MessageSquare className="h-4 w-4" />
             Ask AI About Me
