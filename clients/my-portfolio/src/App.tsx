@@ -4,14 +4,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
-import LoginPage from "./pages/LoginPage";
 import { Routes, Route } from "react-router";
 
 function Router() {
   return (
     <Routes>
-      <Route path="/my-portfolio/*" element={<Home />} />
-      <Route path="/my-portfolio/login" element={<LoginPage />} />
+      <Route path="/" element={<Home />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

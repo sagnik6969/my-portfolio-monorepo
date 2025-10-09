@@ -10,7 +10,7 @@ tasks:
   build:
     command: "npm run build"
   
-  # deploy:
-  #   command: "../../scripts/deploy_fe_to_gcs.sh"
-  #   deps:
-  #     - 'build'
+  deploy:
+    command: "firebase deploy --only hosting"
+    deps:
+      - 'build'
