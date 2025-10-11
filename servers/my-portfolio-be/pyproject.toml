@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "fastapi>=0.118.2",
+    "firebase-admin>=7.1.0",
+    "uvicorn>=0.37.0",
+]
 
 [dependency-groups]
 dev = [
