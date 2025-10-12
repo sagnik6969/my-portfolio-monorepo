@@ -63,6 +63,7 @@ export default function AIChatDialog({
     setMessages([...messages, userMessage]);
 
     setInput("");
+    setIsLoading(true);
 
     const source = new SSE(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
       headers: {
@@ -87,6 +88,7 @@ export default function AIChatDialog({
             if (lastMessage && lastMessage.role === "assistant") {
               lastMessage.content += token.text;
             } else {
+              setIsLoading(false);
               newMessages.push({
                 id: newMessages.length + 1,
                 role: "assistant",
@@ -180,6 +182,17 @@ export default function AIChatDialog({
                   )}
                 </div>
               ))}
+              {isLoading && (
+                <div className="flex justify-start items-center">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-primary" />
+                  </div>
+                  <span className="relative flex size-3 ml-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
+                    <span className="relative inline-flex size-3 rounded-full bg-sky-500"></span>
+                  </span>
+                </div>
+              )}
               <div ref={messagesEndRef} />
             </div>
           </ScrollArea>
@@ -207,7 +220,7 @@ export default function AIChatDialog({
               className="text-xs text-muted-foreground mt-2 text-center"
               data-testid="text-powered-by"
             >
-              Powered by OpenAI
+              Powered by Gemini
             </p>
           </div>
         </ProtectedComponent>
