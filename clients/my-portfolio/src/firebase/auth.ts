@@ -26,3 +26,9 @@ export const signInWithGoogle = () => {
       // ...
     });
 };
+
+export const getFirebaseIdToken = async () => {
+  const user = auth.currentUser;
+  if (!user) return null;
+  return await user.getIdToken(/* forceRefresh */ false);
+};

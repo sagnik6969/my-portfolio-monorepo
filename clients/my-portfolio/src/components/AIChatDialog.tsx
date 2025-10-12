@@ -23,6 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card } from "./ui/card";
+import { getFirebaseIdToken } from "@/firebase/auth";
 
 interface Message {
   id: number;
@@ -69,6 +70,7 @@ export default function AIChatDialog({
       headers: {
         "Content-Type": "application/json",
         Accept: "text/event-stream",
+        Authorization: `Bearer ${await getFirebaseIdToken()}`,
       },
       method: "POST",
       payload: JSON.stringify(requestBody),
