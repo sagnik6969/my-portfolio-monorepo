@@ -1,3 +1,5 @@
+import json
+import os
 from logging import getLogger
 
 import firebase_admin
@@ -5,7 +7,7 @@ from fastapi import FastAPI, HTTPException, Request, Security, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from firebase_admin import auth
+from firebase_admin import auth, credentials
 
 from schemas.agent_chat import ChatRequest
 from utils.agent import stream_agent_response
@@ -13,7 +15,9 @@ from utils.agent import stream_agent_response
 logger = getLogger(__name__)
 
 if not firebase_admin._apps:
-    firebase_admin.initialize_app()
+    service_account_info = json.loads(os.environ["FIREBASE_SERVICE_ACCOUNT"])
+    cred = credentials.Certificate(service_account_info)
+    firebase_admin.initialize_app(cred)
 
 security = HTTPBearer()
 
