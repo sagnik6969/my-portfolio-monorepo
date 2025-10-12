@@ -1,9 +1,14 @@
 from logging import getLogger
 
 import firebase_admin
-from fastapi import FastAPI, HTTPException, Security, status
+from fastapi import FastAPI, HTTPException, Request, Security, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from firebase_admin import auth
+
+from schemas.agent_chat import ChatRequest
+from utils.agent import stream_agent_response
 
 logger = getLogger(__name__)
 
@@ -13,8 +18,13 @@ if not firebase_admin._apps:
 security = HTTPBearer()
 
 
-def verify_token(credentials: HTTPAuthorizationCredentials = Security(security)):  # noqa: B008
+def verify_token(
+    request: Request,
+    credentials: HTTPAuthorizationCredentials = Security(security),  # noqa: B008
+):
     try:
+        if request.url.path == "/":
+            return  # Skip verification for health check endpoint
         auth.verify_id_token(credentials.credentials)
         logger.info("Token verified successfully")
     except auth.InvalidIdTokenError as e:
@@ -35,10 +45,27 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Security(security))
 
 app = FastAPI(dependencies=[Security(verify_token)])
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 def health_check():
     return {"status": "healthy"}
+
+
+@app.post("/chat")
+def chat_endpoint(chat_history: ChatRequest):
+    chat_history = chat_history.model_dump()
+    return StreamingResponse(
+        stream_agent_response(chat_history["chat_history"]),
+        media_type="text/event-stream",
+    )
 
 
 if __name__ == "__main__":
