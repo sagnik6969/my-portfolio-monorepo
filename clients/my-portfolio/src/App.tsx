@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 import { Routes, Route } from "react-router";
+import { run } from "./firebase/aiLogic";
+import { useEffect } from "react";
 
 function Router() {
   return (
@@ -16,6 +18,9 @@ function Router() {
 }
 
 function App() {
+  useEffect(() => {
+    run();
+  });
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>

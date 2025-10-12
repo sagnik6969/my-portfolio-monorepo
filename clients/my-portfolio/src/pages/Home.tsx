@@ -11,7 +11,6 @@ import Footer from "@/components/Footer";
 import AIChatDialog from "@/components/AIChatDialog";
 import { downloadFile } from "@/utils/downloadFile";
 import resumePDF from "@/assets/resume.pdf";
-import ProtectedComponent from "@/components/commmon/ProtectedComponent";
 
 export default function Home() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");

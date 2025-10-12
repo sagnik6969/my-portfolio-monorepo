@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,18 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Send, Bot, User } from "lucide-react";
 import ProtectedComponent from "./commmon/ProtectedComponent";
+import { SSE } from "sse.js";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Card } from "./ui/card";
 
 interface Message {
   id: number;
@@ -36,8 +48,10 @@ export default function AIChatDialog({
     },
   ]);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMessage: Message = {
@@ -45,18 +59,71 @@ export default function AIChatDialog({
       role: "user",
       content: input,
     };
+    let requestBody = { chat_history: [...messages, userMessage] };
+    setMessages([...messages, userMessage]);
 
-    const aiResponse: Message = {
-      id: messages.length + 2,
-      role: "assistant",
-      content:
-        "This is a demo response. In the full application, I'll provide detailed answers about Sagnik's experience, achievements, and technical expertise using AI.",
-    };
-
-    setMessages([...messages, userMessage, aiResponse]);
     setInput("");
+
+    const source = new SSE(`${import.meta.env.VITE_BACKEND_URL}/chat`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "text/event-stream",
+      },
+      method: "POST",
+      payload: JSON.stringify(requestBody),
+    });
+
+    source.addEventListener("message", (e: any) => {
+      if (e.data === "[DONE]") {
+        console.log("Stream finished");
+        source.close();
+      } else {
+        console.log("Received data:", e.data);
+        const parsedData = JSON.parse(e.data);
+        parsedData.token.forEach((token: any) => {
+          setMessages((previousMessages) => {
+            const newMessages = [...previousMessages];
+            const lastMessage = newMessages[newMessages.length - 1];
+            if (lastMessage && lastMessage.role === "assistant") {
+              lastMessage.content += token.text;
+            } else {
+              newMessages.push({
+                id: newMessages.length + 1,
+                role: "assistant",
+                content: token.text,
+              });
+            }
+            console.log("Updated messages:", newMessages);
+            return newMessages;
+          });
+        });
+      }
+    });
+
     console.log("Message sent:", input);
   };
+
+  const customComponents: any = {
+    // Override the <table> element
+    table: ({ node, ...props }: any) => {
+      return (
+        <Card className="my-3 p-2">
+          <Table {...props} />
+        </Card>
+      );
+    },
+
+    // You can also override other elements like thead, tbody, tr, th, td
+    thead: TableHeader,
+    tbody: TableBody,
+    tr: TableRow,
+    th: TableHead,
+    td: TableCell,
+  };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -97,12 +164,14 @@ export default function AIChatDialog({
                         : "bg-muted text-foreground"
                     }`}
                   >
-                    <p
-                      className="text-sm"
-                      data-testid={`text-message-content-${message.id}`}
-                    >
-                      {message.content}
-                    </p>
+                    <div className="text-sm">
+                      <Markdown
+                        components={customComponents}
+                        remarkPlugins={[remarkGfm]}
+                      >
+                        {message.content}
+                      </Markdown>
+                    </div>
                   </div>
                   {message.role === "user" && (
                     <div className="flex-shrink-0 w-8 h-8 rounded-full bg-muted flex items-center justify-center">
@@ -111,6 +180,7 @@ export default function AIChatDialog({
                   )}
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
           </ScrollArea>
 
