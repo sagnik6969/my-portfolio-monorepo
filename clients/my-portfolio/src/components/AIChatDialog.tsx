@@ -104,6 +104,8 @@ export default function AIChatDialog({
       }
     });
 
+    source.stream();
+
     console.log("Message sent:", input);
   };
 
