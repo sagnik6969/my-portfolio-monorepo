@@ -9,6 +9,8 @@ tasks:
 
   build:
     command: "npm run build"
+    outputs:
+      - "dist/"
   
   # deploy:
   #   command: "firebase deploy --only hosting"
