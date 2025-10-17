@@ -10,7 +10,6 @@ llm = init_chat_model("google_genai:gemini-2.5-flash")
 with open("constants/resume.json") as f:
     person_details = f.read()
 
-
 agent = create_agent(
     model=llm,
     tools=[],
