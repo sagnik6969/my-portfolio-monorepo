@@ -10,8 +10,9 @@ tasks:
   build:
     command: "npm run build"
     outputs:
-      - "dist"
+      - "dist/"
   
-  install-deps:
-    command: "npm install"
-    local: true
+  deploy:
+    command: "../../scripts/firebase_deploy.sh"
+    deps:
+      - 'build'

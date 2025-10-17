@@ -5,6 +5,7 @@ def test_add_numbers():
     # Test positive numbers
     assert add_numbers(5, 10) == 15
     # Test negative numbers
+
     assert add_numbers(-1, -2) == -3
     # Test zero
     assert add_numbers(0, 0) == 0

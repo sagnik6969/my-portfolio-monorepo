@@ -4,8 +4,14 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
-
+dependencies = [
+    "fastapi>=0.118.2",
+    "firebase-admin>=7.1.0",
+    "langchain[google-genai]>=1.0.0a14",
+    "uvicorn>=0.37.0",
+    "ruff>=0.12.10",
+]
+[project.optional-dependencies]
 [dependency-groups]
 dev = [
     "pre-commit>=4.3.0",
@@ -18,7 +24,14 @@ dev = [
 [tool.ruff]
 # Project-wide settings
 line-length = 88
-exclude = ["build/", "dist/", "docs/_build/",".venv/", ".vscode/", "checkpoint.pt"]
+exclude = [
+    "build/",
+    "dist/",
+    "docs/_build/",
+    ".venv/",
+    ".vscode/",
+    "checkpoint.pt",
+]
 
 [tool.ruff.lint]
 # Choose rule sets; common picks include:
@@ -37,6 +50,5 @@ quote-style = "double"
 indent-style = "space"
 docstring-code-format = true
 
-
-
-
+[tool.setuptools]
+py-modules = []

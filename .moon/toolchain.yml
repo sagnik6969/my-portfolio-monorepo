@@ -5,3 +5,6 @@ node:
 python:
   packageManager: 'pip'
   version: "3.13"
+  pip:
+    installArgs: ["-e",".[dev]"]
+  

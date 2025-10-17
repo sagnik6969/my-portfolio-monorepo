@@ -1,0 +1,4 @@
+.env
+.venv
+service_accounts/
+.vscode/

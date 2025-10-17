@@ -1,0 +1,1 @@
+uv run --env-file=.env --prerelease=allow main.py 
