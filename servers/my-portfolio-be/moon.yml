@@ -11,13 +11,9 @@ tasks:
 
   check_linting:
     command: "ruff check --output-format=github ."
-    deps: 
-      - 'install_deps'
   
   check_formatting:
     command: "ruff format --check ."
-    deps: 
-      - 'install_deps'
 
   # deploy:
   #   command: "sh ../../scripts/build_and_push_docker.sh"
