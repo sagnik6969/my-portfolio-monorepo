@@ -4,9 +4,6 @@ language: "python"
 platform: "python"
 
 tasks:
-  install_uv:
-    command: "pip install uv"
-
   install_deps:
     command: "uv sync --prerelease=allow"
     deps:

@@ -5,3 +5,6 @@ node:
 python:
   packageManager: 'uv'
   version: "3.13"
+  uv:
+    syncArgs: ['--prerelease=allow']
+  
