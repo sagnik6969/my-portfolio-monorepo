@@ -9,8 +9,9 @@ dependencies = [
     "firebase-admin>=7.1.0",
     "langchain[google-genai]>=1.0.0a14",
     "uvicorn>=0.37.0",
+    "ruff>=0.12.10",
 ]
-
+[project.optional-dependencies]
 [dependency-groups]
 dev = [
     "pre-commit>=4.3.0",
