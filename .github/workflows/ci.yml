@@ -2,7 +2,7 @@ name: "Pipeline"
 on:
   push:
     branches:
-      - "staging"
+      - "main"
 jobs:
   ci:
     name: "CI CD Pipeline"
