@@ -14,5 +14,15 @@ jobs:
       - uses: "actions/checkout@v4"
         with:
           fetch-depth: 0
+
+      - name: "Cache moon task outputs"
+        uses: "actions/cache@v4"
+        with:
+          # This path stores the actual output of your builds, lints, tests, etc.
+          path: ".moon/cache"
+          # This key ensures the cache is unique to the OS and your dependency files.
+          key: ${{ runner.os }}-moon-outputs-${{ hashFiles('**/.moon/toolchain.yml', '**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-moon-outputs-
       - uses: "moonrepo/setup-toolchain@v0"
       - run: "moon ci"
