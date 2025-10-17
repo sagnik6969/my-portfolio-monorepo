@@ -26,3 +26,5 @@ jobs:
             ${{ runner.os }}-moon-outputs-
       - uses: "moonrepo/setup-toolchain@v0"
       - run: "moon ci"
+        env:
+          MOON_BASE: "HEAD~1"
