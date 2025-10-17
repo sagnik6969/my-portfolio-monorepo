@@ -10,10 +10,10 @@ tasks:
     local: true
 
   check_linting:
-    command: "ruff check --output-format=github ."
+    command: "python -m ruff check --output-format=github ."
   
   check_formatting:
-    command: "ruff format --check ."
+    command: "python -m ruff format --check ."
 
   # deploy:
   #   command: "sh ../../scripts/build_and_push_docker.sh"
