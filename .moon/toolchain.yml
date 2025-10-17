@@ -3,8 +3,8 @@ node:
   packageManager: "npm"  
 
 python:
-  packageManager: 'uv'
+  packageManager: 'pip'
   version: "3.13"
-  uv:
-    syncArgs: ['--prerelease=allow']
+  pip:
+    installArgs: ["-e","."]
   
