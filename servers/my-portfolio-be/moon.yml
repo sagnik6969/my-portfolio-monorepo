@@ -4,8 +4,14 @@ language: "python"
 platform: "system"
 
 tasks:
+  install_uv:
+    command: "pip install uv"
+
   install_deps:
     command: "uv sync --prerelease=allow"
+    deps:
+      - 'install_uv'
+
   dev:
     command: "uv run uvicorn main:app --reload --port 8000"
     local: true
