@@ -12,7 +12,7 @@ tasks:
     outputs:
       - "dist/"
   
-  # deploy:
-  #   command: "firebase deploy --only hosting"
-  #   deps:
-  #     - 'build'
+  deploy:
+    command: "../../scripts/firebase_deploy.sh"
+    deps:
+      - 'build'

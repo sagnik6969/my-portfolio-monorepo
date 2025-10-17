@@ -5,5 +5,6 @@ set -e
 # Print each command to the terminal before it is executed.
 set -x
 
-npx moon :build
+npm install -g firebase
+
 firebase deploy --only hosting

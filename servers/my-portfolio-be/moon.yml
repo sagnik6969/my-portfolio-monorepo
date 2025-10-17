@@ -15,9 +15,9 @@ tasks:
   check_formatting:
     command: "python -m ruff format --check ."
 
-  # deploy:
-  #   command: "sh ../../scripts/build_and_push_docker.sh"
-  #   deps:
-  #     - 'install_deps'
-  #     - 'check_linting'
-  #     - 'check_formatting'
+  deploy:
+    command: "sh ../../scripts/build_and_push_docker.sh"
+    deps:
+      - 'install_deps'
+      - 'check_linting'
+      - 'check_formatting'
