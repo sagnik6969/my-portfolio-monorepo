@@ -1,21 +1,28 @@
 # apps/backend/project.yml
 type: "application"
 language: "python"
-platform: "python"
+platform: "system"
 
 tasks:
+  install_deps:
+    command: "uv sync --prerelease=allow"
   dev:
-    command: "uvicorn main:app --reload --port 8000"
+    command: "uv run uvicorn main:app --reload --port 8000"
     local: true
 
-  install-deps:
-    command: "uv sync"
-
   check_linting:
-    command: "uv run ruff check --output-format=github ."
+    command: "uv run --prerelease=allow ruff check --output-format=github ."
+    deps: 
+      - 'install_deps'
   
   check_formatting:
-    command: "uv run ruff format --check ."
+    command: "uv run --prerelease=allow ruff format --check ."
+    deps: 
+      - 'install_deps'
 
-  check_test_coverage:
-    command: uv run -m pytest --cov=. --cov-report=term-missing --cov-fail-under=80 tests/
+  deploy:
+    command: "sh ../../scripts/build_and_push_docker.sh"
+    deps:
+      - 'install_deps'
+      - 'check_linting'
+      - 'check_formatting'

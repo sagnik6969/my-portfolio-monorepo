@@ -3,5 +3,5 @@ node:
   packageManager: "npm"  
 
 python:
-  packageManager: 'pip'
+  packageManager: 'uv'
   version: "3.13"
