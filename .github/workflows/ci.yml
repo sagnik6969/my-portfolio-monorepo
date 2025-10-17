@@ -21,7 +21,7 @@ jobs:
           # This path stores the actual output of your builds, lints, tests, etc.
           path: ".moon/cache"
           # This key ensures the cache is unique to the OS and your dependency files.
-          key: ${{ runner.os }}-moon-outputs-${{ hashFiles('**/.moon/toolchain.yml', '**/package-lock.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-moon-outputs
           restore-keys: |
             ${{ runner.os }}-moon-outputs-
       - uses: "moonrepo/setup-toolchain@v0"
