@@ -5,6 +5,8 @@ set -e
 # Print each command to the terminal before it is executed.
 set -x
 
-npm install -g firebase
+echo "Installing firebase cli"
+npm install -g firebase-tools
 
+echo "deploying fe to firebase"
 firebase deploy --only hosting
