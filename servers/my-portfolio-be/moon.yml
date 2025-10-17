@@ -5,7 +5,7 @@ platform: "python"
 
 tasks:
   install_uv:
-    command: "echo \"installing uv\""
+    command: "pip install uv"
 
   install_deps:
     command: "uv sync --prerelease=allow"
