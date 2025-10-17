@@ -8,8 +8,5 @@ set -x
 echo "Installing firebase cli"
 npm install -g firebase-tools
 
-# Add npm global bin to PATH (important!)
-export PATH="/usr/local/bin:$PATH"
-
 echo "deploying fe to firebase"
-firebase deploy --only hosting
+npx firebase deploy --only hosting
