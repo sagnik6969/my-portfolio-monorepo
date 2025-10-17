@@ -6,5 +6,5 @@ python:
   packageManager: 'pip'
   version: "3.13"
   pip:
-    installArgs: ["-r","pyproject.toml"]
+    installArgs: ["-e","."]
   

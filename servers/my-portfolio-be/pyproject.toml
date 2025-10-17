@@ -23,7 +23,14 @@ dev = [
 [tool.ruff]
 # Project-wide settings
 line-length = 88
-exclude = ["build/", "dist/", "docs/_build/",".venv/", ".vscode/", "checkpoint.pt"]
+exclude = [
+    "build/",
+    "dist/",
+    "docs/_build/",
+    ".venv/",
+    ".vscode/",
+    "checkpoint.pt",
+]
 
 [tool.ruff.lint]
 # Choose rule sets; common picks include:
@@ -42,6 +49,5 @@ quote-style = "double"
 indent-style = "space"
 docstring-code-format = true
 
-
-
-
+[tool.setuptools]
+py-modules = []
