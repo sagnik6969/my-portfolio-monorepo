@@ -2,6 +2,6 @@ node:
   version: "22.18.0"   
   packageManager: "npm"  
 
-python:
-  packageManager: 'uv'
-  version: "3.13"
+# python:
+#   packageManager: 'uv'
+#   version: "3.13"

@@ -1,7 +1,7 @@
 # apps/backend/project.yml
 type: "application"
 language: "python"
-platform: "system"
+platform: "python"
 
 tasks:
   install_uv:
