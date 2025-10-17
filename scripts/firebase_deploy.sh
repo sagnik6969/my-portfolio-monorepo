@@ -9,7 +9,7 @@ echo "Installing firebase cli"
 npm install -g firebase-tools
 
 # Add npm global bin to PATH (important!)
-export PATH="$(npm bin -g):$PATH"
+export PATH="/usr/local/bin:$PATH"
 
 echo "deploying fe to firebase"
 firebase deploy --only hosting
