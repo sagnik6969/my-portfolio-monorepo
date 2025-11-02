@@ -193,9 +193,7 @@ export default function Home() {
       <EducationSection education={education} />
       <ContactSection />
       <Footer />
-      {/* <ProtectedComponent> */}
       <AIChatDialog open={isChatOpen} onOpenChange={setIsChatOpen} />
-      {/* </ProtectedComponent> */}
     </div>
   );
 }

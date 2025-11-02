@@ -131,14 +131,14 @@ export default function Hero({ onAskAI, onDownloadResume }: HeroProps) {
           </Button>
         </div>
 
-        <div className="flex justify-center gap-12 pt-8 text-sm text-muted-foreground">
+        {/* <div className="flex justify-center gap-12 pt-8 text-sm text-muted-foreground">
           <div className="flex items-center gap-2" data-testid="text-email">
             <span>sagnikjana2001@gmail.com</span>
           </div>
           <div className="flex items-center gap-2" data-testid="text-phone">
             <span>+91 9836033443</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
